@@ -53,6 +53,36 @@ function createBombe(blockGrid) {
                     blockGrid[bombe.x][bombe.y - 1].style.backgroundColor = "green";
                 }
 
+                //vérifie la presence d'ennemis
+                for (var i = 0; i < vilainListe.length; i++) {
+                    if (parseInt(bombe.style.left) == vilainListe[i].offsetLeft && parseInt(bombe.style.top) - GRID_SIZE == vilainListe[i].offsetTop) {
+                        vilainListe[i].traverser = true;
+                        vilainListe[i].remove();
+                        vilainListe.splice(i, 1);
+                        break;
+                    }
+                    if (parseInt(bombe.style.left) - GRID_SIZE == vilainListe[i].offsetLeft && parseInt(bombe.style.top) == vilainListe[i].offsetTop) {
+                        vilainListe[i].traverser = true;
+                        vilainListe[i].remove();
+                        vilainListe.splice(i, 1);
+                        break;
+                    }
+                    if (parseInt(bombe.style.left) + GRID_SIZE == vilainListe[i].offsetLeft && parseInt(bombe.style.top) == vilainListe[i].offsetTop) {
+                        vilainListe[i].traverser = true;
+                        vilainListe[i].remove();
+                        vilainListe.splice(i, 1);
+                        break;
+                    }
+                    if (parseInt(bombe.style.left) == vilainListe[i].offsetLeft && parseInt(bombe.style.top) + GRID_SIZE == vilainListe[i].offsetTop) {
+                        vilainListe[i].traverser = true;
+                        vilainListe[i].remove();
+                        vilainListe.splice(i, 1);
+                        break;
+                    }
+
+                }
+
+
 
             }, 2000);
 
