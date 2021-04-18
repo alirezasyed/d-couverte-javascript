@@ -1,3 +1,5 @@
+
+// the grid size
 const H_GRID = 24;
 const V_GRID = 16;
 const GRID_SIZE = 40;
@@ -9,12 +11,15 @@ var plateau = document.getElementById('plateau');
 plateau.style.width = WINDOW_WIDTH;
 plateau.style.height = WINDOW_HEIGHT;
 
+
+
 var pion = document.getElementById('pion'),
     stylePion = pion.style,
     x = 0,
     y = 0;
 
 
+// creating the grid
 var blockGrid = [];
 for (var i = 0; i < H_GRID; i++) {
     blockGrid.push([]);
@@ -22,14 +27,19 @@ for (var i = 0; i < H_GRID; i++) {
         let block = document.createElement("div");
         block.style.width = "40px";
         block.style.height = "40px";
-        block.style.display = "flex";
         block.style.position = "absolute";
+        block.style.backgroundSize = 'contain';
+        block.style.zIndex = '90';
 
-        if (random100() > 90) {
-            block.style.backgroundColor = "black";
+
+        if (random100() > 60 && !(i >= 0 && i <= 1 && j >= 0 && j <= 1 || i >= (H_GRID - 2) && i < H_GRID && j >= 0 && j <= 1 || i >= 0 && i <= 1 && j >= (V_GRID - 2) && j < V_GRID || i >= (H_GRID - 2) && i < H_GRID && j >= (V_GRID - 2) && j < V_GRID)) {
+            block.style.backgroundImage = 'url("img/brick.png")';
             block.traverser = false;
-        } else {
-            block.style.backgroundColor = "green";
+        }
+
+
+        else {
+            block.style.backgroundImage = 'url("img/ground.png")';
             block.traverser = true;
         }
 
@@ -43,11 +53,11 @@ for (var i = 0; i < H_GRID; i++) {
 
 
 
-
-
+// creating the vilains
 var vilainListe = []
 for (var i = 0; i < 5; i++) {
     let vilain = document.createElement('div');
+    vilain.id = String(i);
 
     let x = 0;
     let y = 0;
@@ -55,19 +65,17 @@ for (var i = 0; i < 5; i++) {
         x = Math.floor(Math.random() * (H_GRID))
         y = Math.floor(Math.random() * (V_GRID))
     }
-    blockGrid[x][y].traverser = false;
+    blockGrid[x][y].traverser = true;
     vilain.vilainX = x;
     vilain.vilainY = y;
     vilain.direction = "right";
-
-
-
     vilain.id = "vilain" + String(i);
     vilain.style.width = "40px";
     vilain.style.height = "40px";
     vilain.style.position = "absolute";
-    vilain.style.backgroundColor = "yellow";
+    vilain.style.backgroundImage = "url('img/enemy.png')";
     vilain.style.backgroundSize = "contain";
+    vilain.style.backgroundRepeat = "no-repeat";
     vilain.style.left = String(vilain.vilainX * GRID_SIZE) + "px";
     vilain.style.top = String(vilain.vilainY * GRID_SIZE) + "px";
     vilain.style.zIndex = "95";
@@ -79,6 +87,8 @@ for (var i = 0; i < 5; i++) {
     vilainListe.push(vilain)
 }
 
+
+// creating randomly the vilains
 var frame = 0;
 
 function loop() {
@@ -112,6 +122,9 @@ function loop() {
                         vilainX--;
                     break;
             }
+
+
+
             vilain.style.left = String(vilainX * GRID_SIZE) + 'px';
             vilain.style.top = String(vilainY * GRID_SIZE) + 'px';
 
@@ -159,40 +172,39 @@ document.onkeydown = function(event) {
         case 38:
             if (y > 0 && blockGrid[x][y - 1].traverser)
                 y--; // ou y-=40;
+            startAnimationUp();    
             break;
             // Right
         case 39:
             if (x < H_GRID - 1 && blockGrid[x + 1][y].traverser)
                 x++;
+            startAnimationRight();    
             break;
             // Down
         case 40:
             if (y < H_GRID - 1 && blockGrid[x][y + 1].traverser)
                 y++;
+            startAnimationDown();    
             break;
             // Left
         case 37:
             if (x > 0 && blockGrid[x - 1][y].traverser)
                 x--;
+            startAnimationLeft();    
             break;
 
         case 32:
-            if (!blockGrid[x][y].bombe) {
-                createBombe(blockGrid);
-            }
+                createBomb();
             break;
         default:
             return;
     }
-
+    
 
     stylePion.left = String(x * GRID_SIZE) + 'px';
     stylePion.top = String(y * GRID_SIZE) + 'px';
 }
 
-function randomColor() {
-    return "#" + ((1 << 24) * Math.random() | 0).toString(16);
-}
 
 function random100() {
     return Math.floor(Math.random() * 100);
