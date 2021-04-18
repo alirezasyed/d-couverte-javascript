@@ -160,4 +160,59 @@ function kill() {
 
     }
 
+    // updating the list
+    let offseti = 0;
+    for (var i = 0; i < killed.length; i++) {
+        vilainListe.splice(killed[i - offseti], 1);
+        offseti++;
+    }
+
+    if (vilainListe.length == 0) {
+        alert("Gagné ! Score " + score + " - Time: " + pad(parseInt(totalSeconds / 60)) + ":" + pad(totalSeconds % 60));
+        windiw.location.href = window.location.href;
+        return;
+    }
+
+    // Le pion (joueur) est détruit par la bombe
+    for (var i = 0; i < GRID_SIZE; i++) {
+
+
+        if (parseInt(bombe.style.left) == parseInt(stylePion.left) && parseInt(bombe.style.top) == parseInt(stylePion.top)) {
+            document.getElementById('pion').remove();
+            alert("Perdu ! Attention la prochaine fois..");
+            windiw.location.href = window.location.href;
+            break;
+        }
+
+        // Top
+        if (parseInt(bombe.style.left) == parseInt(stylePion.left) && parseInt(bombe.style.top) - GRID_SIZE == parseInt(stylePion.top)) {
+            document.getElementById('pion').remove();
+            alert("Perdu ! Attention la prochaine fois..");
+            windiw.location.href = window.location.href;
+            break;
+        }
+
+        if (parseInt(bombe.style.left) - GRID_SIZE == parseInt(stylePion.left) && parseInt(bombe.style.top) == parseInt(stylePion.top)) {
+            document.getElementById('pion').remove();
+            alert("Perdu ! Attention la prochaine fois..");
+            windiw.location.href = window.location.href;
+            break;
+        }
+
+        if (parseInt(bombe.style.left) + GRID_SIZE == parseInt(stylePion.left) && parseInt(bombe.style.top) == parseInt(stylePion.top)) {
+            document.getElementById('pion').remove();
+            alert("Perdu ! Attention la prochaine fois..");
+            windiw.location.href = window.location.href;
+            break;
+        }
+
+        if (parseInt(bombe.style.left) == parseInt(stylePion.left) && parseInt(bombe.style.top) + GRID_SIZE == parseInt(stylePion.top)) {
+            document.getElementById('pion').remove();
+            alert("Perdu ! Recommencer...");
+            windiw.location.href = window.location.href;
+            break;
+        }
+
+    }
+
 }
