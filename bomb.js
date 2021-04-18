@@ -16,7 +16,7 @@ function createBomb() {
         bombe.style.top = String(y * GRID_SIZE) + "px";
 
 
-        
+
         blockGrid[x][y].traverser = false;
 
         bombe.x = x;
@@ -110,3 +110,54 @@ function explosionDistance() {
 }
 
 
+function kill() {
+
+
+    let killed = [];
+
+    for (var i = 0; i < vilainListe.length; i++) {
+
+
+
+        if (parseInt(bombe.style.left) == vilainListe[i].offsetLeft && parseInt(bombe.style.top) - GRID_SIZE == vilainListe[i].offsetTop) {
+            vilainListe[i].traverser = true;
+            vilainListe[i].remove();
+            killed.push(i);
+
+            score++;
+
+        }
+
+        if (parseInt(bombe.style.left) - GRID_SIZE == vilainListe[i].offsetLeft && parseInt(bombe.style.top) == vilainListe[i].offsetTop) {
+            vilainListe[i].traverser = true;
+            vilainListe[i].remove();
+            killed.push(i);
+
+            score++;
+
+        }
+
+        if (parseInt(bombe.style.left) + GRID_SIZE == vilainListe[i].offsetLeft && parseInt(bombe.style.top) == vilainListe[i].offsetTop) {
+            vilainListe[i].traverser = true;
+            vilainListe[i].remove();
+            killed.push(i);
+
+            score++;
+
+        }
+
+
+        if (parseInt(bombe.style.left) == vilainListe[i].offsetLeft && parseInt(bombe.style.top) + GRID_SIZE == vilainListe[i].offsetTop) {
+            vilainListe[i].traverser = true;
+            vilainListe[i].remove();
+            killed.push(i);
+
+            score++;
+
+        }
+
+        drawScore();
+
+    }
+
+}
