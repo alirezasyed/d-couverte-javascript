@@ -41,7 +41,71 @@ function bombexplosion() {
     }
 
     setTimeout(explosionDistance, 1000);
-    setTimeout(killEmAll, 1000);
+    setTimeout(kill, 1000);
+
+}
+
+
+function explosionDistance() {
+
+    let bx = bombe.x;
+    let by = bombe.y;
+
+    blockGrid[bx][by].traverser = false;
+
+    for (var i = 0; i < bombeListe.length; i++) {
+
+        // up
+        if (by > 0) {
+            if (!(blockGrid[bx][by - 1].traverser)) {
+                blockGrid[bx][by - 1].traverser = true;
+            }
+            blockGrid[bx][by - 1].style.backgroundImage = 'url("img/explosion.png"), url("img/ground.png")';
+            setTimeout(function() {
+                blockGrid[bx][by - 1].style.backgroundImage = 'url("img/ground.png")';
+            }, 500);
+
+        }
+
+        // down
+        if (by < V_GRID - 1) {
+            if (!(blockGrid[bx][by + 1].traverser)) {
+                blockGrid[bx][by + 1].traverser = true;
+            }
+            blockGrid[bx][by + 1].style.backgroundImage = 'url("img/explosion.png"), url("img/ground.png")';
+            setTimeout(function() {
+                blockGrid[bx][by + 1].style.backgroundImage = 'url("img/ground.png")';
+            }, 500);
+        }
+
+        // left
+        if (bx > 0) {
+            if (!(blockGrid[bx - 1][by].traverser)) {
+                blockGrid[bx - 1][by].traverser = true;
+            }
+            blockGrid[bx - 1][by].style.backgroundImage = 'url("img/explosion.png"), url("img/ground.png")';
+            setTimeout(function() {
+                blockGrid[bx - 1][by].style.backgroundImage = 'url("img/ground.png")';
+            }, 500);
+        }
+
+        // right
+        if (bx < H_GRID - 1) {
+            if (!(blockGrid[bx + 1][by].traverser)) {
+                blockGrid[bx + 1][by].traverser = true;
+            }
+            blockGrid[bx + 1][by].style.backgroundImage = 'url("img/explosion.png"), url("img/ground.png")';
+            setTimeout(function() {
+                blockGrid[bx + 1][by].style.backgroundImage = 'url("img/ground.png")';
+            }, 500);
+        }
+
+        drawScore();
+
+    }
+
+    document.getElementById("bombe").remove();
+    blockGrid[bx][by].traverser = true;
 
 }
 
