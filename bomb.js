@@ -173,7 +173,6 @@ function kill() {
         return;
     }
 
-    // Le pion (joueur) est détruit par la bombe
     for (var i = 0; i < GRID_SIZE; i++) {
 
 

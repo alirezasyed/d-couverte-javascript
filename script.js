@@ -1,4 +1,3 @@
-
 // the grid size
 const H_GRID = 24;
 const V_GRID = 16;
@@ -35,10 +34,7 @@ for (var i = 0; i < H_GRID; i++) {
         if (random100() > 60 && !(i >= 0 && i <= 1 && j >= 0 && j <= 1 || i >= (H_GRID - 2) && i < H_GRID && j >= 0 && j <= 1 || i >= 0 && i <= 1 && j >= (V_GRID - 2) && j < V_GRID || i >= (H_GRID - 2) && i < H_GRID && j >= (V_GRID - 2) && j < V_GRID)) {
             block.style.backgroundImage = 'url("img/brick.png")';
             block.traverser = false;
-        }
-
-
-        else {
+        } else {
             block.style.backgroundImage = 'url("img/ground.png")';
             block.traverser = true;
         }
@@ -88,7 +84,7 @@ for (var i = 0; i < 5; i++) {
 }
 
 
-// creating randomly the vilains
+// creating the vilains randomly
 var frame = 0;
 
 function loop() {
@@ -172,34 +168,34 @@ document.onkeydown = function(event) {
         case 38:
             if (y > 0 && blockGrid[x][y - 1].traverser)
                 y--; // ou y-=40;
-            startAnimationUp();    
+            startAnimationUp();
             break;
             // Right
         case 39:
             if (x < H_GRID - 1 && blockGrid[x + 1][y].traverser)
                 x++;
-            startAnimationRight();    
+            startAnimationRight();
             break;
             // Down
         case 40:
             if (y < H_GRID - 1 && blockGrid[x][y + 1].traverser)
                 y++;
-            startAnimationDown();    
+            startAnimationDown();
             break;
             // Left
         case 37:
             if (x > 0 && blockGrid[x - 1][y].traverser)
                 x--;
-            startAnimationLeft();    
+            startAnimationLeft();
             break;
 
         case 32:
-                createBomb();
+            createBomb();
             break;
         default:
             return;
     }
-    
+
 
     stylePion.left = String(x * GRID_SIZE) + 'px';
     stylePion.top = String(y * GRID_SIZE) + 'px';
