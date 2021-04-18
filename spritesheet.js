@@ -42,3 +42,45 @@ function startAnimationUp() {
 
     }, speed);
 }
+
+function startAnimationLeft() {
+    stopAnimation();
+    var position = widthOfEachSprite;
+    const speed = 110;
+    const diff = widthOfEachSprite;
+
+    animationInterval = setInterval(() => {
+        spriteSheet.style.backgroundPosition = `-${position}px 80px`;
+
+        if (position < widthOfSpriteSheet) {
+            position = position + diff;
+        } else {
+
+            position = widthOfEachSprite;
+        }
+
+    }, speed);
+}
+
+function startAnimationRight() {
+    stopAnimation();
+    var position = widthOfEachSprite;
+    const speed = 110;
+    const diff = widthOfEachSprite;
+
+    animationInterval = setInterval(() => {
+        spriteSheet.style.backgroundPosition = `-${position}px 120px`;
+
+        if (position < widthOfSpriteSheet) {
+            position = position + diff;
+        } else {
+
+            position = widthOfEachSprite;
+        }
+
+    }, speed);
+}
+
+function stopAnimation() {
+    clearInterval(animationInterval);
+}
